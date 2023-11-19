@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LeafletJS GeoJSON Point</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            html,
+            body,
+            #map {
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <div id="map"></div>
+        <script>
+            /* Initial Map */
+            var map = L.map("map").setView([-6.217821824221051, 106.8258108688532], 14);
+
+            var basemap1 = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "© OpenStreetMap",
+            });
+
+            var basemap2 = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+                attribution: "Tiles&copy; Esri",
+            });
+
+            var basemap3 = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+                attribution: "Tiles&copy; Esri",
+            });
+
+            var basemap4 = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+                attribution:
+                    'Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+            });
+
+            basemap1.addTo(map);
+
+            /* Control Layer */
+            var baseMaps = {
+                "Open Street Map": basemap1,
+                "Esri World Street": basemap2,
+                "Esri Imagery": basemap3,
+                "Open Topographic Map": basemap4,
+            };
+
+            // GEOJSON INFRA
+
+            function infraColor(d) {
+                if (d === "Green") return "green";
+                return "grey";
+            }
+
+            var infra = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: infraColor(feature.properties.INFRA),
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h3>" + feature.properties.NAMOBJ + "</h3><hr>" + "<h4>Luas: " + feature.properties.LUAS_HA + " Ha</h4>";
+                    layer.on({
+                        click: function (e) {
+                            infra.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            feature.properties.NAMOBJ;
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/UNION_GREEN_GRAY_INFRA_GCS.geojson", function (data) {
+                infra.addData(data);
+                map.addLayer(infra);
+            });
+
+            /* GeoJSON AOI*/
+            var aoi = L.geoJson(null, {
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+                    layer.on({
+                        click: function (e) {
+                            aoi.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/ar_kajian_gcs.geojson", function (data) {
+                aoi.addData(data);
+                map.addLayer(aoi);
+            });
+
+            var overlayMaps = {
+                "Segitiga Emas Jakarta": aoi,
+                Infrastruktur: infra,
+            };
+
+            L.control
+                .layers(baseMaps, overlayMaps, {
+                    collapsed: true,
+                })
+                .addTo(map);
+        </script>
+    </body>
+</html>
