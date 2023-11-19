@@ -58,62 +58,47 @@
                 "Open Topographic Map": basemap4,
             };
 
-            // GEOJSON INFRA
+            // GEOJSON banjir
 
-            function infraColor(d) {
-                if (d === "Green") return "green";
+            function banjirColor(d) {
+                if (d === "Tidak Terdampak") return "#fee5d9";
+                if (d === "Rendah") return "#fcae91";
+                if (d === "Sedang") return "#fb6a4a";
+                if (d === "Tinggi") return "#de2d26";
+                if (d === "Sangat Tinggi") return "#a50f15";
                 return "grey";
             }
 
-            var infra = L.geoJson(null, {
+            var banjir = L.geoJson(null, {
                 style: function (feature) {
                     return {
                         color: "black",
-                        fillColor: infraColor(feature.properties.INFRA),
+                        fillColor: banjirColor(feature.properties.kategori_b),
                         weight: 1,
                         opacity: 1,
                         fillOpacity: 0.9,
                     };
                 },
                 onEachFeature: function (feature, layer) {
-                    var popupContent = "<h3>" + feature.properties.NAMOBJ + "</h3><hr>" + "<h4>Luas: " + feature.properties.LUAS_HA + " Ha</h4>";
+                    var popupContent = "<h3>" + feature.properties.rw + "</h3><hr>";
                     layer.on({
                         click: function (e) {
-                            infra.bindPopup(popupContent);
+                            banjir.bindPopup(popupContent);
                         },
                         mouseover: function (e) {
-                            feature.properties.NAMOBJ;
+                            feature.properties.rw;
                         },
                     });
                 },
             });
-            $.getJSON("data/UNION_GREEN_GRAY_INFRA_GCS.geojson", function (data) {
-                infra.addData(data);
-                map.addLayer(infra);
-            });
-
-            /* GeoJSON AOI*/
-            var aoi = L.geoJson(null, {
-                onEachFeature: function (feature, layer) {
-                    var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
-                    layer.on({
-                        click: function (e) {
-                            aoi.bindPopup(popupContent);
-                        },
-                        mouseover: function (e) {
-                            // aoi.bindTooltip(popupContent);
-                        },
-                    });
-                },
-            });
-            $.getJSON("data/ar_kajian_gcs.geojson", function (data) {
-                aoi.addData(data);
-                map.addLayer(aoi);
+            $.getJSON("data/UNION_KEJADIAN_BANJIR.geojson", function (data) {
+                banjir.addData(data);
+                map.addLayer(banjir);
             });
 
             var overlayMaps = {
-                Infrastruktur: infra,
-                "Segitiga Emas Jakarta": aoi,
+                "Kejadian Banjir": banjir,
+                // "Segitiga Emas Jakarta": aoi,
             };
 
             L.control
