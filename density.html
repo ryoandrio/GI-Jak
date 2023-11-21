@@ -31,26 +31,6 @@
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             }).addTo(map);
 
-            /* GeoJSON */
-            // var aoi = L.geoJson(null, {
-            //     onEachFeature: function (feature, layer) {
-            //         var popupContent = "<h4>AOI Jakarta</h4><hr>";
-            //         layer.on({
-            //             click: function (e) {
-            //                 aoi.bindPopup(popupContent);
-            //             },
-            //             mouseover: function (e) {
-            //                 aoi.bindTooltip(popupContent);
-            //             },
-            //         });
-            //     },
-            // });
-            // $.getJSON("data/ar_kajian_gcs.geojson", function (data) {
-            //     aoi.addData(data);
-            //     // map.addLayer(aoi);
-            // });
-
-            // originally from https://globalwindatlas.info/downloads/gis-files
             var url_to_geotiff_file = "https://ryoandrio.github.io/images/UHI_JKT3.tif";
 
             fetch(url_to_geotiff_file)
