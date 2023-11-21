@@ -21,6 +21,26 @@
                 width: 100%;
                 margin: 0px;
             }
+
+            .legend {
+                padding: 6px 8px;
+                background-color: rgba(255, 255, 255, 1);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+            }
+
+            .legend div {
+                width: 18px;
+                height: 18px;
+                float: left;
+                margin-right: 8px;
+                opacity: 0.7;
+                outline: 1.5px solid black;
+            }
+
+            div.legend.leaflet-control br {
+                clear: both;
+            }
         </style>
     </head>
     <body>
@@ -104,6 +124,36 @@
             L.control
                 .layers(baseMaps, overlayMaps, {
                     collapsed: true,
+                })
+                .addTo(map);
+
+            // // Legend
+            // L.LegendControl = L.Control.extend({
+            //     onAdd: function (map) {
+            //         var div = L.DomUtil.create("div", "legend");
+            //         div.innerHTML =
+            //             "<h5> Fruitset Agustus 2022</h5>" +
+            //             '<div style="background-color: red"></div><h6>Turun</h6>' +
+            //             '<div style="background-color: yellow"></div><h6>Flat</h6>' +
+            //             '<div style="background-color: green"></div><h6>Naik</h6>' +
+            //             '<div style="background-color: grey"></div><h6>No Data</h6>';
+            //         return div;
+            //     },
+            // });
+
+            // L.legendControl = function (options) {
+            //     return new L.LegendControl(options);
+            // };
+
+            // L.legendControl({
+            //     position: "bottomleft",
+            // }).addTo(map);
+
+            /* Scale Bar */
+            L.control
+                .scale({
+                    maxWidth: 150,
+                    position: "bottomright",
                 })
                 .addTo(map);
         </script>
