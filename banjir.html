@@ -96,7 +96,7 @@
                         fillColor: banjirColor(feature.properties.kategori_b),
                         weight: 1,
                         opacity: 1,
-                        fillOpacity: 0.9,
+                        fillOpacity: 0.8,
                     };
                 },
                 onEachFeature: function (feature, layer) {
@@ -116,7 +116,45 @@
                 map.addLayer(banjir);
             });
 
+            // RISIKO BANJIR
+            function risikoColor(d) {
+                // if (d === "Tidak Terdampak") return "#fee5d9";
+                if (d === "Rendah") return "green";
+                if (d === "Sedang") return "yellow";
+                if (d === "Tinggi") return "red";
+                // if (d === "Sangat Tinggi") return "#a50f15";
+                return "grey";
+            }
+
+            var risiko = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: risikoColor(feature.properties.Keterangan),
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.5,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h3>" + feature.properties.Keterangan + "</h3><hr>";
+                    layer.on({
+                        click: function (e) {
+                            risiko.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            feature.properties.Keterangan;
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/RISIKO_BANJIR_JKT_GCS.geojson", function (data) {
+                risiko.addData(data);
+                // map.addLayer(risiko);
+            });
+
             var overlayMaps = {
+                "Risiko Banjir": risiko,
                 "Kejadian Banjir": banjir,
                 // "Segitiga Emas Jakarta": aoi,
             };
