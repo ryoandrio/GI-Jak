@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LeafletJS GeoJSON Point</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            html,
+            body,
+            #map {
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+        <div id="map"></div>
+        <script>
+            /* Initial Map */
+            var map = L.map("map").setView([-6.217821824221051, 106.8258108688532], 14);
+
+            var basemap1 = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "© OpenStreetMap",
+            });
+
+            var basemap2 = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+                attribution: "Tiles&copy; Esri",
+            });
+
+            var basemap3 = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+                attribution: "Tiles&copy; Esri",
+            });
+
+            var basemap4 = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+                attribution:
+                    'Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+            });
+
+            basemap1.addTo(map);
+
+            /* Control Layer */
+            var baseMaps = {
+                "Open Street Map": basemap1,
+                "Esri World Street": basemap2,
+                "Esri Imagery": basemap3,
+                "Open Topographic Map": basemap4,
+            };
+
+            /* GeoJSON AOI*/
+            // var aoi = L.geoJson(null, {
+            //     style: function (feature) {
+            //         return {
+            //             color: "black",
+            //             fillColor: "black",
+            //             weight: 0,
+            //             // fillOpacity: 0.75,
+            //             opacity: 0,
+            //         };
+            //     },
+            //     onEachFeature: function (feature, layer) {
+            //         // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+            //         layer.on({
+            //             click: function (e) {
+            // aoi.bindPopup(popupContent);
+            //             },
+            //             mouseover: function (e) {
+            //                 // aoi.bindTooltip(popupContent);
+            //             },
+            //         });
+            //     },
+            // });
+            // $.getJSON("data/ar_kajian_gcs.geojson", function (data) {
+            //     aoi.addData(data);
+            //     map.addLayer(aoi);
+            // });
+
+            // /* GeoJSON Green Infra*/
+            var atap_hijau = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#22cb9b",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Atap Hijau</h4>";
+                    layer.on({
+                        click: function (e) {
+                            atap_hijau.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/atap_hijau.geojson", function (data) {
+                atap_hijau.addData(data);
+                map.addLayer(atap_hijau);
+            });
+
+            var jalur_hijau = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#d2bb7a",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Jalur Hijau</h4>";
+                    layer.on({
+                        click: function (e) {
+                            jalur_hijau.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/jalur_hijau.geojson", function (data) {
+                jalur_hijau.addData(data);
+                map.addLayer(jalur_hijau);
+            });
+
+            var kebun = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#bc4ee4",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Kebun</h4>";
+                    layer.on({
+                        click: function (e) {
+                            kebun.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/kebun.geojson", function (data) {
+                kebun.addData(data);
+                map.addLayer(kebun);
+            });
+
+            var kereta = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ee3ad6",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Koridor Kereta Api</h4>";
+                    layer.on({
+                        click: function (e) {
+                            kereta.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/kereta.geojson", function (data) {
+                kereta.addData(data);
+                map.addLayer(kereta);
+            });
+
+            var lapangan = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#4082c9",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Lapangan Olahraga Terbuka</h4>";
+                    layer.on({
+                        click: function (e) {
+                            lapangan.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/lapangan.geojson", function (data) {
+                lapangan.addData(data);
+                map.addLayer(lapangan);
+            });
+
+            var rumput = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ceda72",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Padang rumput</h4>";
+                    layer.on({
+                        click: function (e) {
+                            rumput.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/rumput.geojson", function (data) {
+                rumput.addData(data);
+                map.addLayer(rumput);
+            });
+
+            var pekarangan = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#69df5e",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Pekarangan</h4>";
+                    layer.on({
+                        click: function (e) {
+                            pekarangan.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/pekarangan.geojson", function (data) {
+                pekarangan.addData(data);
+                map.addLayer(pekarangan);
+            });
+
+            var semak = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#3340d4",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Semak Belukar</h4>";
+                    layer.on({
+                        click: function (e) {
+                            semak.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/semak.geojson", function (data) {
+                semak.addData(data);
+                map.addLayer(semak);
+            });
+
+            var taman = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#cc327a",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Taman</h4>";
+                    layer.on({
+                        click: function (e) {
+                            taman.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/taman.geojson", function (data) {
+                taman.addData(data);
+                map.addLayer(taman);
+            });
+
+            var taman_atap = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ec1322",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Taman Atap</h4>";
+                    layer.on({
+                        click: function (e) {
+                            taman_atap.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/taman_atap.geojson", function (data) {
+                taman_atap.addData(data);
+                map.addLayer(taman_atap);
+            });
+
+            var taman_main = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ec1322",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Taman Bermain Terbuka</h4>";
+                    layer.on({
+                        click: function (e) {
+                            taman_main.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/taman_main.geojson", function (data) {
+                taman_main.addData(data);
+                map.addLayer(taman_main);
+            });
+
+            var makam = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ec1322",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Taman Permakaman</h4>";
+                    layer.on({
+                        click: function (e) {
+                            makam.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/makam.geojson", function (data) {
+                makam.addData(data);
+                map.addLayer(makam);
+            });
+
+            var tanah = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ec1322",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Tanah Terbuka</h4>";
+                    layer.on({
+                        click: function (e) {
+                            tanah.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/tanah.geojson", function (data) {
+                tanah.addData(data);
+                map.addLayer(tanah);
+            });
+
+            var waduk = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#ec1322",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    var popupContent = "<h4>Waduk</h4>";
+                    layer.on({
+                        click: function (e) {
+                            waduk.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/waduk.geojson", function (data) {
+                waduk.addData(data);
+                map.addLayer(waduk);
+            });
+
+            var overlayMaps = {
+                // "Tipologi Infrastruktur": infra,
+                // "Segitiga Emas Jakarta": aoi,
+                "Atap Hijau": atap_hijau,
+                "Jalur Hijau": jalur_hijau,
+                Kebun: kebun,
+                "Koridor Kereta Api": kereta,
+                "Lapangan Olahraga Terbuka": lapangan,
+                "Padang Rumput": rumput,
+                Pekarangan: pekarangan,
+                "Semak Belukar": semak,
+                Taman: taman,
+                "Taman Atap": taman_atap,
+                "Taman Bermain Terbuka": taman_main,
+                "Taman Permakaman": makam,
+                "Tanah Terbuka": tanah,
+                Waduk: waduk,
+            };
+
+            L.control
+                .layers(baseMaps, overlayMaps, {
+                    collapsed: false,
+                })
+                .addTo(map);
+        </script>
+    </body>
+</html>
