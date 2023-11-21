@@ -121,121 +121,121 @@
             // });
 
             // /* GeoJSON Jangkauan Pelayanan*/
-            // var jp_taman = L.geoJson(null, {
-            //     style: function (feature) {
-            //         return {
-            //             color: "black",
-            //             fillColor: "#a1d99b",
-            //             weight: 1,
-            //             opacity: 1,
-            //             fillOpacity: 0.9,
-            //         };
-            //     },
-            //     onEachFeature: function (feature, layer) {
-            //         // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
-            //         layer.on({
-            //             click: function (e) {
-            //                 // aoi.bindPopup(popupContent);
-            //             },
-            //             mouseover: function (e) {
-            //                 // aoi.bindTooltip(popupContent);
-            //             },
-            //         });
-            //     },
-            // });
-            // $.getJSON("data/JP__TAMAN__1KM_GCS.geojson", function (data) {
-            //     jp_taman.addData(data);
-            //     map.addLayer(jp_taman);
-            // });
+            var jp_taman = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#a1d99b",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+                    layer.on({
+                        click: function (e) {
+                            // aoi.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/JP__TAMAN__1KM_GCS.geojson", function (data) {
+                jp_taman.addData(data);
+                // map.addLayer(jp_taman);
+            });
 
-            // var jp_waduk = L.geoJson(null, {
-            //     style: function (feature) {
-            //         return {
-            //             color: "black",
-            //             fillColor: "#9ecae1",
-            //             weight: 1,
-            //             opacity: 1,
-            //             fillOpacity: 0.9,
-            //         };
-            //     },
-            //     onEachFeature: function (feature, layer) {
-            //         // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
-            //         layer.on({
-            //             click: function (e) {
-            //                 // aoi.bindPopup(popupContent);
-            //             },
-            //             mouseover: function (e) {
-            //                 // aoi.bindTooltip(popupContent);
-            //             },
-            //         });
-            //     },
-            // });
-            // $.getJSON("data/JP_Waduk_5KM_GCS.geojson", function (data) {
-            //     jp_waduk.addData(data);
-            //     map.addLayer(jp_waduk);
-            // });
+            var jp_waduk = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#9ecae1",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+                    layer.on({
+                        click: function (e) {
+                            // aoi.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/JP_Waduk_5KM_GCS.geojson", function (data) {
+                jp_waduk.addData(data);
+                // map.addLayer(jp_waduk);
+            });
 
-            // var jp_makam = L.geoJson(null, {
-            //     style: function (feature) {
-            //         return {
-            //             color: "black",
-            //             fillColor: "#fec44f",
-            //             weight: 1,
-            //             opacity: 1,
-            //             fillOpacity: 0.9,
-            //         };
-            //     },
-            //     onEachFeature: function (feature, layer) {
-            //         // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
-            //         layer.on({
-            //             click: function (e) {
-            //                 // aoi.bindPopup(popupContent);
-            //             },
-            //             mouseover: function (e) {
-            //                 // aoi.bindTooltip(popupContent);
-            //             },
-            //         });
-            //     },
-            // });
-            // $.getJSON("data/JP_PEMAKAMAN_2KOMA5KM_GCS.geojson", function (data) {
-            //     jp_makam.addData(data);
-            //     map.addLayer(jp_makam);
-            // });
+            var jp_makam = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#fec44f",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+                    layer.on({
+                        click: function (e) {
+                            // aoi.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/JP_PEMAKAMAN_2KOMA5KM_GCS.geojson", function (data) {
+                jp_makam.addData(data);
+                // map.addLayer(jp_makam);
+            });
 
-            // var jp_taman_main = L.geoJson(null, {
-            //     style: function (feature) {
-            //         return {
-            //             color: "black",
-            //             fillColor: "#807dba",
-            //             weight: 1,
-            //             opacity: 1,
-            //             fillOpacity: 0.9,
-            //         };
-            //     },
-            //     onEachFeature: function (feature, layer) {
-            //         // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
-            //         layer.on({
-            //             click: function (e) {
-            //                 // aoi.bindPopup(popupContent);
-            //             },
-            //             mouseover: function (e) {
-            //                 // aoi.bindTooltip(popupContent);
-            //             },
-            //         });
-            //     },
-            // });
-            // $.getJSON("data/JP__TAMAN BERMAIN_1KM_GCS.geojson", function (data) {
-            //     jp_taman_main.addData(data);
-            //     map.addLayer(jp_taman_main);
-            // });
+            var jp_taman_main = L.geoJson(null, {
+                style: function (feature) {
+                    return {
+                        color: "black",
+                        fillColor: "#807dba",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9,
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    // var popupContent = "<h4>Segitiga Emas Jakarta</h4><hr>";
+                    layer.on({
+                        click: function (e) {
+                            // aoi.bindPopup(popupContent);
+                        },
+                        mouseover: function (e) {
+                            // aoi.bindTooltip(popupContent);
+                        },
+                    });
+                },
+            });
+            $.getJSON("data/JP__TAMAN BERMAIN_1KM_GCS.geojson", function (data) {
+                jp_taman_main.addData(data);
+                // map.addLayer(jp_taman_main);
+            });
 
             var overlayMaps = {
                 "Tipologi Infrastruktur": infra,
                 // "Segitiga Emas Jakarta": aoi,
-                // "Jangkauan Pelayanan Taman (1 KM)": jp_taman,
-                // "Jangkauan Pelayanan Taman Bermain (1 KM)": jp_taman_main,
-                // "Jangkauan Pelayanan Permakaman (2,5 KM)": jp_makam,
-                // "Jangkauan Pelayanan Waduk (5 KM)": jp_waduk,
+                "Jangkauan Pelayanan Taman (1 KM)": jp_taman,
+                "Jangkauan Pelayanan Taman Bermain (1 KM)": jp_taman_main,
+                "Jangkauan Pelayanan Permakaman (2,5 KM)": jp_makam,
+                "Jangkauan Pelayanan Waduk (5 KM)": jp_waduk,
             };
 
             L.control
